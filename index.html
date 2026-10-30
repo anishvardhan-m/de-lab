@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap">
 <style>
 [hidden]{display:none!important}body{margin:0}
-/* Layout: single reading column, jump chips, one card per question with labelled code blocks */
+/* Layout: single reading column, jump chips, one card per task/question with labelled blocks */
 :root{--bg:#f5f6f8;--fg:#1c2330;--muted:#5d6878;--card:#ffffff;--line:#dde1e8;--accent:#2b5fd9;--code:#eef1f6;
 --sans:"IBM Plex Sans",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#13161c;--fg:#e4e8ef;--muted:#98a2b3;--card:#1b1f27;--line:#2c323d;--accent:#7aa2ff;--code:#11141a;color-scheme:dark}}
@@ -28,32 +28,41 @@ button:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
 pre{margin:0;padding:14px;font:13px/1.5 var(--mono);tab-size:4}
 .q{padding:12px 14px 4px;margin:0;color:var(--muted);line-height:1.5}
 .blk{border-top:1px solid var(--line)}
-.blk:first-of-type{border-top:0}
 .bh{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 14px}
-.bh span{font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.lab{font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .bh button{padding:5px 12px;font-size:.8rem}
 .num{color:var(--accent)}
+.txt{padding:0 14px 12px;line-height:1.6}
+.txt p{margin:0;max-width:70ch}
+.txt ul,.txt ol{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:4px;max-width:70ch}
+.txt dl{margin:0;display:flex;flex-direction:column;gap:10px;max-width:70ch}
+.txt dt{font-weight:600}
+.txt dd{margin:2px 0 0;color:var(--muted)}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:480px;font-size:.9rem}
+th,td{text-align:left;padding:6px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;background:var(--code)}
+.note{margin:12px 14px 0;padding:8px 12px;border-radius:6px;background:var(--code);color:var(--muted);font-size:.9rem;line-height:1.5}
+.part{font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:12px 0 -6px}
+nav .grp{font-size:.75rem;font-weight:600;color:var(--muted);align-self:center;width:100%}
 </style>
 </head>
 <body>
 <main>
-<div class="top"><div><h1>Data Engineering Lab</h1><p class="sub">Lab Internal 1 · 13 questions · Python, Pandas, ydata-profiling, architecture</p></div><button type="button" id="all">Copy all</button></div>
-<nav><a href="#q1">Q1</a><a href="#q2">Q2</a><a href="#q3">Q3</a><a href="#q4">Q4</a><a href="#q5">Q5</a><a href="#q6">Q6</a><a href="#q7">Q7</a><a href="#q8">Q8</a><a href="#q9">Q9</a><a href="#q10">Q10</a><a href="#q11">Q11</a><a href="#q12">Q12</a><a href="#q13">Q13</a></nav>
-<section id="q1"><div class="head"><h2><span class="num">Q1</span> Dataset overview + ydata-profiling report</h2></div><p class="q">Load a CSV dataset using Pandas. Display its shape, column names, data types, missing values, and duplicate count. Generate and save a ydata-profiling HTML report.</p><div class="blk"><div class="bh"><span>Python</span><button type="button" data-i="0">Copy</button></div><div class="code"><pre id="c0">!pip install -q ydata-profiling
+<div class="top"><div><h1>Data Engineering Lab</h1><p class="sub">Tasks 1, 2, 5 · Experiment 3 · Lab Internal 1 questions</p></div><button type="button" id="all">Copy all</button></div>
+<nav><span class="grp">Lab manual</span><a href="#t1">Task 1</a><a href="#t2">Task 2</a><a href="#e3">Exp 3</a><a href="#t5">Task 5</a><span class="grp">Internal 1 questions</span><a href="#q1">Q1</a><a href="#q2">Q2</a><a href="#q3">Q3</a><a href="#q4">Q4</a><a href="#q5">Q5</a><a href="#q6">Q6</a><a href="#q7">Q7</a><a href="#q8">Q8</a><a href="#q9">Q9</a><a href="#q10">Q10</a><a href="#q11">Q11</a><a href="#q12">Q12</a><a href="#q13">Q13</a></nav>
+<p class="part">Lab manual</p>
+<section id="t1"><div class="head"><h2>Laboratory Task 1 – Data Profiling using ydata-profiling</h2></div><div class="blk"><div class="bh"><span class="lab">Aim</span></div><div class="txt"><p>To perform data profiling on a dataset and generate an automated report describing its structure and data-quality characteristics.</p></div></div><div class="blk"><div class="bh"><span class="lab">Theory</span></div><div class="txt"><p>Data profiling is the process of examining a dataset to understand its structure, content and quality before further analysis. It helps identify the number of records and attributes, data types, missing values, duplicate records, unique values, descriptive statistics and distributions. The ydata-profiling library automatically generates a detailed profiling report from a Pandas DataFrame.</p></div></div><div class="blk"><div class="bh"><span class="lab">Requirements</span></div><div class="txt"><ul><li>Python 3.x</li><li>Google Colab or Jupyter Notebook</li><li>Pandas</li><li>ydata-profiling</li><li>CSV dataset</li></ul></div></div><div class="blk"><div class="bh"><span class="lab">Procedure</span></div><div class="txt"><ol><li>Install the required library.</li><li>Import Pandas and ydata-profiling.</li><li>Load the CSV dataset.</li><li>Inspect the dataset.</li><li>Generate the profiling report.</li><li>Save and examine the HTML report.</li></ol></div></div><div class="blk"><div class="bh"><span class="lab">Program</span><button type="button" data-i="0">Copy</button></div><div class="code"><pre id="c0">!pip install -q ydata-profiling
 
 import pandas as pd
 from ydata_profiling import ProfileReport
 
 df = pd.read_csv(&quot;dataset.csv&quot;)
+df.head()
 
 print(&quot;Shape:&quot;, df.shape)
-print(&quot;\nColumn Names:&quot;)
-print(df.columns.tolist())
 print(&quot;\nData Types:&quot;)
 print(df.dtypes)
-print(&quot;\nMissing Values:&quot;)
-print(df.isnull().sum())
-print(&quot;\nDuplicate Count:&quot;, df.duplicated().sum())
 
 profile = ProfileReport(
     df,
@@ -61,76 +70,7 @@ profile = ProfileReport(
     explorative=True
 )
 profile.to_file(&quot;data_profiling_report.html&quot;)
-print(&quot;\nReport saved as data_profiling_report.html&quot;)
-</pre></div></div></section><section id="q2"><div class="head"><h2><span class="num">Q2</span> Profiling report + data-quality observations</h2></div><p class="q">Generate a ydata-profiling report for a CSV dataset. Identify missing values, duplicate records, data types, and other useful data-quality observations from the report.</p><div class="blk"><div class="bh"><span>Python</span><button type="button" data-i="1">Copy</button></div><div class="code"><pre id="c1">!pip install -q ydata-profiling
-
-import pandas as pd
-from ydata_profiling import ProfileReport
-
-df = pd.read_csv(&quot;dataset.csv&quot;)
-
-profile = ProfileReport(
-    df,
-    title=&quot;Data Quality Report&quot;,
-    explorative=True
-)
-profile.to_file(&quot;data_quality_report.html&quot;)
-profile.to_notebook_iframe()      # shows the report inside Colab / Jupyter
-
-# Cross-check the report&#x27;s findings with Pandas
-print(&quot;Records:&quot;, df.shape[0], &quot; Attributes:&quot;, df.shape[1])
-print(&quot;\nData Types:&quot;)
-print(df.dtypes)
-print(&quot;\nMissing Values per Column:&quot;)
-print(df.isnull().sum())
-print(&quot;\nMissing %:&quot;)
-print((df.isnull().mean() * 100).round(2))
-print(&quot;\nDuplicate Records:&quot;, df.duplicated().sum())
-print(&quot;\nUnique Values per Column:&quot;)
-print(df.nunique())
-print(&quot;\nDescriptive Statistics:&quot;)
-print(df.describe())
-</pre></div></div><div class="blk"><div class="bh"><span>Observations to write</span><button type="button" data-i="2">Copy</button></div><div class="code"><pre id="c2">Where to find each item in the report:
-
-1. Overview tab   -&gt; Number of variables, Number of observations,
-                     Missing cells (count and %), Duplicate rows (count and %),
-                     Variable types (Numeric / Categorical / Boolean / Text).
-2. Alerts tab     -&gt; Warnings such as MISSING, DUPLICATES, HIGH CORRELATION,
-                     CONSTANT, UNIQUE, ZEROS, SKEWED, IMBALANCE.
-3. Variables      -&gt; Per column: distinct values, missing %, mean, min, max,
-                     histogram / most frequent values.
-4. Interactions &amp; Correlations -&gt; Relationships between numeric columns.
-5. Missing values -&gt; Count / matrix chart showing which columns have gaps.
-6. Sample         -&gt; First and last rows of the dataset.
-
-Sample observations (fill in with your dataset&#x27;s numbers):
-- The dataset has __ records and __ attributes.
-- __ cells (__%) are missing, mostly in column(s) ______.
-- __ duplicate rows were found and should be removed.
-- Column ______ is constant / highly unique (e.g. an ID) and adds no analytical value.
-- Columns ______ and ______ are highly correlated.
-- Column ______ is skewed / has many zeros, which may indicate outliers or default values.
-- Data types are correct / column ______ should be converted to ______.
-</pre></div></div></section><section id="q3"><div class="head"><h2><span class="num">Q3</span> First rows, dimensions, data types, summary</h2></div><p class="q">Load a CSV dataset using Pandas and display its first five rows, dimensions, data types, and summary information.</p><div class="blk"><div class="bh"><span>Python</span><button type="button" data-i="3">Copy</button></div><div class="code"><pre id="c3">import pandas as pd
-
-df = pd.read_csv(&quot;dataset.csv&quot;)
-
-print(&quot;First Five Rows:&quot;)
-print(df.head())
-
-print(&quot;\nDimensions (rows, columns):&quot;, df.shape)
-print(&quot;Number of Rows:&quot;, df.shape[0])
-print(&quot;Number of Columns:&quot;, df.shape[1])
-
-print(&quot;\nData Types:&quot;)
-print(df.dtypes)
-
-print(&quot;\nSummary Information:&quot;)
-df.info()
-
-print(&quot;\nStatistical Summary:&quot;)
-print(df.describe())
-</pre></div></div></section><section id="q4"><div class="head"><h2><span class="num">Q4</span> KPIs: pass %, failures, absentees</h2></div><p class="q">Using subject_summary_clean.csv, calculate the overall average pass percentage, total failures, and total absentees. Display the results with suitable labels.</p><div class="blk"><div class="bh"><span>Python</span><button type="button" data-i="4">Copy</button></div><div class="code"><pre id="c4">import pandas as pd
+</pre></div></div><div class="blk"><div class="bh"><span class="lab">Expected Output</span></div><div class="txt"><p>The report provides an overview of variables, missing values, duplicate records, descriptive statistics, distributions and relationships/correlations where applicable.</p></div></div><div class="blk"><div class="bh"><span class="lab">Result</span></div><div class="txt"><p>The dataset was successfully profiled using ydata-profiling and an automated profiling report was generated.</p></div></div><div class="blk"><div class="bh"><span class="lab">Viva Questions</span></div><div class="txt"><dl><div><dt>What is data profiling?</dt><dd>Examining a dataset to understand its structure, content and quality (records, columns, types, missing values, duplicates, statistics) before analysis.</dd></div><div><dt>Why is data profiling performed before analysis?</dt><dd>To find data-quality problems early so that cleaning can be planned and wrong conclusions avoided.</dd></div><div><dt>What information can a profiling report provide?</dt><dd>Number of variables and rows, data types, missing cells, duplicate rows, distinct values, descriptive statistics, histograms, correlations and alerts.</dd></div><div><dt>What is the purpose of ydata-profiling?</dt><dd>It automatically creates a detailed HTML profiling report from a Pandas DataFrame with one line of code.</dd></div><div><dt>Why are missing values and duplicate records important?</dt><dd>Missing values bias statistics and break models. Duplicates over-count records and distort results, so both must be handled before analysis.</dd></div></dl></div></div></section><section id="t2"><div class="head"><h2>Laboratory Task 2 – KPI Identification and Academic Performance Analysis</h2></div><div class="blk"><div class="bh"><span class="lab">Aim</span></div><div class="txt"><p>To analyze subject-level academic performance data, identify relevant Key Performance Indicators (KPIs), create derived attributes and generate meaningful academic insights.</p></div></div><div class="blk"><div class="bh"><span class="lab">Theory</span></div><div class="txt"><p>A Key Performance Indicator (KPI) is a measurable value used to evaluate performance against a business or academic objective. In academic analysis, KPIs can help identify overall performance, failures, absenteeism, score distribution and subjects requiring intervention. Derived attributes are new values calculated from existing data to support analysis and decision-making.</p></div></div><div class="blk"><div class="bh"><span class="lab">Dataset – subject_summary_clean.csv</span></div><div class="txt"><ul><li>subject_name</li><li>total_failures</li><li>pass_percentage</li><li>absent</li><li>score_8_to_10</li><li>score_6_to_7</li><li>score_4_to_5</li><li>score_below_4</li><li>subject_code</li></ul></div></div><div class="blk"><div class="bh"><span class="lab">Business Objective</span></div><div class="txt"><p>To analyze subject-level academic performance and identify subjects requiring academic attention or intervention.</p></div></div><div class="blk"><div class="bh"><span class="lab">Business Requirements</span></div><div class="txt"><ul><li>Analyze overall subject performance.</li><li>Identify subjects with failures.</li><li>Identify subjects with lower pass percentage.</li><li>Analyze score distribution.</li><li>Identify subjects requiring intervention.</li><li>Identify high-performing subjects.</li></ul></div></div><div class="blk"><div class="bh"><span class="lab">KPIs</span></div><div class="txt"><ul><li>Overall Average Pass Percentage</li><li>Total Failures</li><li>Total Absentees</li><li>Score-band totals</li><li>Subject-wise Pass Percentage</li><li>Subject-wise Failures</li><li>Subject-wise performance measures</li></ul></div></div><div class="blk"><div class="bh"><span class="lab">Procedure</span></div><div class="txt"><ol><li>Load the CSV file.</li><li>Inspect the dataset.</li><li>Calculate KPIs.</li><li>Perform subject-wise analysis.</li><li>Create derived attributes.</li><li>Identify subjects requiring attention.</li><li>Visualize the results.</li><li>Interpret the findings.</li></ol></div></div><div class="blk"><div class="bh"><span class="lab">Program – Load and Inspect</span><button type="button" data-i="1">Copy</button></div><div class="code"><pre id="c1">import pandas as pd
 
 df = pd.read_csv(&quot;subject_summary_clean.csv&quot;)
 
@@ -138,30 +78,20 @@ print(df.head())
 print(&quot;Shape:&quot;, df.shape)
 print(&quot;\nColumns:&quot;)
 print(df.columns.tolist())
-
-overall_pass_percentage = df[&quot;pass_percentage&quot;].mean()
+</pre></div></div><div class="blk"><div class="bh"><span class="lab">Program – KPI Calculation</span><button type="button" data-i="2">Copy</button></div><div class="code"><pre id="c2">overall_pass_percentage = df[&quot;pass_percentage&quot;].mean()
 total_failures = df[&quot;total_failures&quot;].sum()
 total_absent = df[&quot;absent&quot;].sum()
 
-print(&quot;\nOverall Average Pass Percentage:&quot;,
+print(&quot;Overall Average Pass Percentage:&quot;,
       round(overall_pass_percentage, 2))
 print(&quot;Total Failures:&quot;, total_failures)
 print(&quot;Total Absentees:&quot;, total_absent)
-</pre></div></div></section><section id="q5"><div class="head"><h2><span class="num">Q5</span> Subject-wise analysis</h2></div><p class="q">Display subject-wise pass percentage, total failures, and absentees using subject_summary_clean.csv.</p><div class="blk"><div class="bh"><span>Python</span><button type="button" data-i="5">Copy</button></div><div class="code"><pre id="c5">import pandas as pd
-
-df = pd.read_csv(&quot;subject_summary_clean.csv&quot;)
-
-subject_analysis = df[
+</pre></div></div><div class="blk"><div class="bh"><span class="lab">Program – Subject-wise Analysis</span><button type="button" data-i="3">Copy</button></div><div class="code"><pre id="c3">subject_analysis = df[
     [&quot;subject_name&quot;, &quot;pass_percentage&quot;,
      &quot;total_failures&quot;, &quot;absent&quot;]
 ]
-print(&quot;Subject-wise Analysis:&quot;)
-print(subject_analysis.to_string(index=False))
-</pre></div></div></section><section id="q6"><div class="head"><h2><span class="num">Q6</span> Derived column: performance_level</h2></div><p class="q">Create a performance_level column using these rules: Excellent (pass percentage &gt;= 90), Good (&gt;= 75), Average (&gt;= 60), and Needs Improvement (&lt; 60). Display the subject-wise result.</p><div class="blk"><div class="bh"><span>Python</span><button type="button" data-i="6">Copy</button></div><div class="code"><pre id="c6">import pandas as pd
-
-df = pd.read_csv(&quot;subject_summary_clean.csv&quot;)
-
-def performance_level(pass_percentage):
+print(subject_analysis)
+</pre></div></div><div class="blk"><div class="bh"><span class="lab">Program – Derived Performance Level</span><button type="button" data-i="4">Copy</button></div><div class="code"><pre id="c4">def performance_level(pass_percentage):
     if pass_percentage &gt;= 90:
         return &quot;Excellent&quot;
     elif pass_percentage &gt;= 75:
@@ -176,40 +106,35 @@ df[&quot;performance_level&quot;] = df[&quot;pass_percentage&quot;].apply(
 )
 
 print(df[[&quot;subject_name&quot;, &quot;pass_percentage&quot;,
-          &quot;performance_level&quot;]].to_string(index=False))
-</pre></div></div></section><section id="q7"><div class="head"><h2><span class="num">Q7</span> Derived column: academic_risk</h2></div><p class="q">Create an academic_risk column that is True when pass_percentage &lt; 75 or total_failures &gt; 0. Display the subjects requiring attention.</p><div class="blk"><div class="bh"><span>Python</span><button type="button" data-i="7">Copy</button></div><div class="code"><pre id="c7">import pandas as pd
-
-df = pd.read_csv(&quot;subject_summary_clean.csv&quot;)
-
-df[&quot;academic_risk&quot;] = (
+          &quot;performance_level&quot;]])
+</pre></div></div><div class="blk"><div class="bh"><span class="lab">Program – Academic Risk</span><button type="button" data-i="5">Copy</button></div><div class="code"><pre id="c5">df[&quot;academic_risk&quot;] = (
     (df[&quot;pass_percentage&quot;] &lt; 75) |
     (df[&quot;total_failures&quot;] &gt; 0)
 )
 
 print(df[[&quot;subject_name&quot;, &quot;pass_percentage&quot;,
-          &quot;total_failures&quot;, &quot;academic_risk&quot;]].to_string(index=False))
+          &quot;total_failures&quot;, &quot;academic_risk&quot;]])
+</pre></div></div><div class="blk"><div class="bh"><span class="lab">Program – Subjects Requiring Attention</span><button type="button" data-i="6">Copy</button></div><div class="code"><pre id="c6">attention_subjects = df[
+    (df[&quot;pass_percentage&quot;] &lt; 75) |
+    (df[&quot;total_failures&quot;] &gt; 0)
+]
 
-attention_subjects = df[df[&quot;academic_risk&quot;]]
-
-print(&quot;\nSubjects Requiring Attention:&quot;)
+print(&quot;Subjects Requiring Attention:&quot;)
 print(attention_subjects[
     [&quot;subject_name&quot;, &quot;pass_percentage&quot;,
      &quot;total_failures&quot;]
-].to_string(index=False))
-</pre></div></div></section><section id="q8"><div class="head"><h2><span class="num">Q8</span> Bar chart of subject-wise pass %</h2></div><p class="q">Create a bar chart of subject-wise pass percentage using Matplotlib. Add a title, axis labels, and readable subject labels.</p><div class="blk"><div class="bh"><span>Python</span><button type="button" data-i="8">Copy</button></div><div class="code"><pre id="c8">import pandas as pd
-
-df = pd.read_csv(&quot;subject_summary_clean.csv&quot;)
-import matplotlib.pyplot as plt
+])
+</pre></div></div><div class="blk"><div class="bh"><span class="lab">Program – Visualization</span><button type="button" data-i="7">Copy</button></div><div class="code"><pre id="c7">import matplotlib.pyplot as plt
 
 plt.figure(figsize=(10, 5))
 plt.bar(df[&quot;subject_name&quot;], df[&quot;pass_percentage&quot;])
 plt.xlabel(&quot;Subject&quot;)
 plt.ylabel(&quot;Pass Percentage&quot;)
 plt.title(&quot;Subject-wise Pass Percentage&quot;)
-plt.xticks(rotation=45, ha=&quot;right&quot;)
+plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
-</pre></div></div></section><section id="q9"><div class="head"><h2><span class="num">Q9</span> Solution architecture: Student Data Analytics System</h2></div><p class="q">Design a solution architecture for a Student Data Analytics System. Draw a labelled diagram showing data sources, ingestion, processing, storage, and visualization.</p><div class="blk"><div class="bh"><span>Diagram</span><button type="button" data-i="9">Copy</button></div><div class="code"><pre id="c9">+--------------------------------------------------------+
+</pre></div></div><div class="blk"><div class="bh"><span class="lab">Expected Output</span></div><div class="txt"><p>The program displays the dataset, calculated KPIs, subject-wise performance, derived performance levels, academic-risk indicators and subjects requiring attention. A bar chart shows subject-wise pass percentage.</p></div></div><div class="blk"><div class="bh"><span class="lab">Result</span></div><div class="txt"><p>The academic performance data was successfully analyzed. KPIs and derived attributes were calculated, subjects requiring attention were identified and the results were visualized.</p></div></div><div class="blk"><div class="bh"><span class="lab">Viva Questions</span></div><div class="txt"><dl><div><dt>What is a KPI?</dt><dd>A Key Performance Indicator: a measurable value that shows how well an objective is being met, e.g. average pass percentage.</dd></div><div><dt>Why are KPIs useful in academic analysis?</dt><dd>They turn raw results into a few clear numbers that show overall performance, failures and absenteeism, and point to subjects needing action.</dd></div><div><dt>What is a derived attribute?</dt><dd>A new column calculated from existing columns, e.g. performance_level from pass_percentage.</dd></div><div><dt>Why are derived attributes useful?</dt><dd>They add meaning (categories, flags) that make filtering, comparison and decision-making easier.</dd></div><div><dt>How is average pass percentage calculated?</dt><dd>Mean of the pass_percentage column: sum of all subjects&#x27; pass % divided by the number of subjects (df[&quot;pass_percentage&quot;].mean()).</dd></div><div><dt>How are subjects requiring attention identified?</dt><dd>Subjects with pass_percentage &lt; 75 or total_failures &gt; 0 are flagged (academic_risk = True).</dd></div><div><dt>Why is visualization useful?</dt><dd>Charts show patterns and weak subjects at a glance, which is faster to understand than a table of numbers.</dd></div></dl></div></div></section><section id="e3"><div class="head"><h2>Experiment No. 3 – Architectural Design: Solution Architecture</h2></div><div class="blk"><div class="bh"><span class="lab">Objectives</span></div><div class="txt"><ol><li>To define the overall architecture of a data engineering solution.</li><li>To identify the major components and understand the flow of data between them.</li><li>To select appropriate technologies and tools for each component.</li><li>To design a data pipeline and processing workflow.</li><li>To create an architectural diagram to visualize the proposed solution.</li><li>To review the architecture based on performance, scalability, reliability, and stakeholder requirements.</li></ol></div></div><div class="blk"><div class="bh"><span class="lab">Problem Statement</span></div><div class="txt"><p>Design a data engineering architecture for a Student Data Analytics System that collects student information from different sources, processes and stores the data, and generates reports for academic analysis. The system should collect student details, attendance records, examination marks, and course information. The collected data must be cleaned, transformed, stored, and made available for analysis and reporting.</p></div></div><div class="blk"><div class="bh"><span class="lab">Data Engineering Architecture</span></div><div class="txt"><p>Solution architecture is the high-level design of a system that describes its major components, technologies, data flow, and interactions. In data engineering, solution architecture defines how data is collected, ingested, processed, stored, and delivered for analysis. A well-designed architecture helps ensure that data is accurate, accessible, secure, and available for decision-making.</p></div></div><div class="blk"><div class="bh"><span class="lab">Components of a Data Engineering Architecture</span></div><div class="txt"><ol><li>Data Sources: Systems from which data is collected, such as relational databases, CSV/Excel files, APIs, and application logs. In this example, the sources are student details, attendance records, examination marks, and course information.</li><li>Data Ingestion Layer: Collects data from different sources and transfers it to the processing or storage system. Python scripts or Apache NiFi can be used to ingest data from CSV files and databases.</li><li>Data Processing Layer: Cleans, transforms, validates, and integrates collected data. Operations include removing duplicates, handling missing values, standardizing formats, and calculating attendance percentages or average marks. Python with Pandas or Apache Spark can be used.</li><li>Data Storage Layer: Stores raw and processed data for future use. Technologies may include MySQL, PostgreSQL, MongoDB, Amazon S3, or HDFS. MySQL or PostgreSQL is suitable for structured student data.</li><li>Data Analysis and Visualization Layer: Makes processed data available for analysis and reporting. SQL, Power BI, Tableau, or Python Matplotlib can be used to create reports on student performance, attendance, and course-wise results.</li><li>Monitoring and Security Layer: Monitors pipeline execution, records errors, and protects sensitive student information through authentication, access control, logging, and backups.</li></ol></div></div><div class="blk"><div class="bh"><span class="lab">Proposed Solution Architecture (Figure 1)</span><button type="button" data-i="8">Copy</button></div><div class="code"><pre id="c8">+--------------------------------------------------------+
 |                     DATA SOURCES                       |
 |  Student Details | Attendance Records                  |
 |  Examination Marks | Course Information                |
@@ -243,7 +168,307 @@ plt.show()
 
  Data flows from source systems to ingestion, processing,
  storage, and analytics.
-</pre></div></div><div class="blk"><div class="bh"><span>Explanation</span><button type="button" data-i="10">Copy</button></div><div class="code"><pre id="c10">1. Data Sources: Student details, attendance records, examination marks and
+</pre></div></div><div class="blk"><div class="bh"><span class="lab">Technologies and Tools</span></div><div class="txt"><div class="tw"><table><thead><tr><th>Component</th><th>Technology / Tool</th><th>Purpose</th></tr></thead><tbody><tr><td>Data sources</td><td>CSV, Excel, MySQL</td><td>Provide input data</td></tr><tr><td>Data ingestion</td><td>Python</td><td>Extract data from different sources</td></tr><tr><td>Data processing</td><td>Python, Pandas</td><td>Clean and transform data</td></tr><tr><td>Data storage</td><td>MySQL or PostgreSQL</td><td>Store processed data</td></tr><tr><td>Workflow orchestration</td><td>Apache Airflow</td><td>Schedule and manage pipeline tasks</td></tr><tr><td>Data analysis</td><td>SQL</td><td>Query and analyze data</td></tr><tr><td>Visualization</td><td>Power BI or Tableau</td><td>Create reports and dashboards</td></tr><tr><td>Architecture design</td><td>draw.io or Lucidchart</td><td>Create the architecture diagram</td></tr><tr><td>Documentation</td><td>Microsoft Word or Google Docs</td><td>Document architecture and decisions</td></tr><tr><td>Monitoring</td><td>Python logging</td><td>Record pipeline execution and errors</td></tr></tbody></table></div></div></div><div class="blk"><div class="bh"><span class="lab">Data Pipeline and Processing Workflow</span></div><div class="txt"><ol><li>Data Collection: Collect student details, attendance records, and examination marks from CSV files or databases.</li><li>Data Ingestion: Load the collected data into the pipeline using Python scripts.</li><li>Data Validation: Check whether the input contains valid student IDs, appropriate data types, and required fields.</li><li>Data Cleaning: Remove duplicate records, handle missing values, and correct inconsistent data formats.</li><li>Data Transformation: Combine student details with attendance and examination records. Calculate attendance percentages and average marks where required.</li><li>Data Storage: Store the cleaned and transformed data in MySQL or PostgreSQL tables.</li><li>Data Analysis: Execute SQL queries to identify student performance, attendance patterns, and course-wise results.</li></ol></div></div><div class="blk"><div class="bh"><span class="lab">Result</span></div><div class="txt"><p>The solution architecture for the Student Data Analytics System was designed. Its components, technologies, data flow and processing workflow were identified, and the architecture diagram was drawn.</p></div></div></section><section id="t5"><div class="head"><h2>Laboratory Task 5 – ETL Pipeline using Python and Pandas</h2></div><p class="note">Your PDFs didn&#x27;t include Task 5. This write-up is built from Internal questions 12 and 13. Check it against your class notes.</p><div class="blk"><div class="bh"><span class="lab">Aim</span></div><div class="txt"><p>To build an ETL (Extract, Transform, Load) pipeline in Python that extracts data from a CSV file, cleans and transforms it, loads it into a destination CSV file, and logs the pipeline execution status.</p></div></div><div class="blk"><div class="bh"><span class="lab">Theory</span></div><div class="txt"><p>ETL stands for Extract, Transform, Load. Extract reads data from a source such as a CSV file or database. Transform cleans and reshapes the data: removing duplicates, handling missing values, standardizing formats and creating derived columns. Load writes the processed data to a destination such as a CSV file, database or data warehouse. Logging records each step&#x27;s status and errors so that the pipeline can be monitored and debugged.</p></div></div><div class="blk"><div class="bh"><span class="lab">Requirements</span></div><div class="txt"><ul><li>Python 3.x</li><li>Google Colab or Jupyter Notebook</li><li>Pandas</li><li>logging module (built in)</li><li>CSV dataset</li></ul></div></div><div class="blk"><div class="bh"><span class="lab">Procedure</span></div><div class="txt"><ol><li>Import Pandas and logging.</li><li>Configure logging.</li><li>Extract data from the source CSV file.</li><li>Remove duplicate records.</li><li>Handle missing values (numeric → mean, text → &quot;Unknown&quot;).</li><li>Standardize column names and text values; add derived columns.</li><li>Load the cleaned data into a destination CSV file.</li><li>Log the execution status of each step and of the whole pipeline.</li></ol></div></div><div class="blk"><div class="bh"><span class="lab">Program – Basic ETL (Q12)</span><button type="button" data-i="9">Copy</button></div><div class="code"><pre id="c9">import pandas as pd
+
+# ---------- EXTRACT ----------
+df = pd.read_csv(&quot;dataset.csv&quot;)
+print(&quot;Extracted data shape:&quot;, df.shape)
+print(&quot;\nMissing values before cleaning:&quot;)
+print(df.isnull().sum())
+print(&quot;Duplicate records before cleaning:&quot;, df.duplicated().sum())
+
+# ---------- TRANSFORM ----------
+# 1. Remove duplicate records
+df = df.drop_duplicates()
+
+# 2. Handle missing values
+for col in df.columns:
+    if pd.api.types.is_numeric_dtype(df[col]):
+        df[col] = df[col].fillna(df[col].mean())      # numeric -&gt; mean
+    else:
+        df[col] = df[col].fillna(&quot;Unknown&quot;)           # text -&gt; &quot;Unknown&quot;
+
+print(&quot;\nMissing values after cleaning:&quot;)
+print(df.isnull().sum())
+print(&quot;Duplicate records after cleaning:&quot;, df.duplicated().sum())
+
+# ---------- LOAD ----------
+df.to_csv(&quot;cleaned_dataset.csv&quot;, index=False)
+print(&quot;\nCleaned data shape:&quot;, df.shape)
+print(&quot;Cleaned data saved to cleaned_dataset.csv&quot;)
+</pre></div></div><div class="blk"><div class="bh"><span class="lab">Program – ETL Workflow with Logging (Q13)</span><button type="button" data-i="10">Copy</button></div><div class="code"><pre id="c10">import logging
+import pandas as pd
+
+logging.basicConfig(
+    level=logging.INFO,
+    format=&quot;%(asctime)s - %(levelname)s - %(message)s&quot;,
+    handlers=[logging.FileHandler(&quot;etl_pipeline.log&quot;),
+              logging.StreamHandler()],
+    force=True
+)
+
+def extract(path):
+    logging.info(&quot;EXTRACT started: reading %s&quot;, path)
+    df = pd.read_csv(path)
+    logging.info(&quot;EXTRACT completed: %d rows, %d columns&quot;, df.shape[0], df.shape[1])
+    return df
+
+def transform(df):
+    logging.info(&quot;TRANSFORM started&quot;)
+    before = len(df)
+    df = df.drop_duplicates()
+    logging.info(&quot;Removed %d duplicate rows&quot;, before - len(df))
+
+    missing = int(df.isnull().sum().sum())
+    for col in df.columns:
+        if pd.api.types.is_numeric_dtype(df[col]):
+            df[col] = df[col].fillna(df[col].mean())
+        else:
+            df[col] = df[col].fillna(&quot;Unknown&quot;)
+    logging.info(&quot;Filled %d missing values&quot;, missing)
+
+    # standardize column names and text values
+    df.columns = df.columns.str.strip().str.lower().str.replace(&quot; &quot;, &quot;_&quot;)
+    for col in df.columns:
+        if not pd.api.types.is_numeric_dtype(df[col]):
+            df[col] = df[col].astype(str).str.strip()
+
+    # example derived attribute (only if the column exists)
+    if &quot;pass_percentage&quot; in df.columns:
+        df[&quot;result_status&quot;] = df[&quot;pass_percentage&quot;].apply(
+            lambda p: &quot;Good&quot; if p &gt;= 75 else &quot;Needs Attention&quot;)
+        logging.info(&quot;Added derived column result_status&quot;)
+
+    logging.info(&quot;TRANSFORM completed: %d rows&quot;, len(df))
+    return df
+
+def load(df, path):
+    logging.info(&quot;LOAD started: writing %s&quot;, path)
+    df.to_csv(path, index=False)
+    logging.info(&quot;LOAD completed: %d rows saved&quot;, len(df))
+
+def run_pipeline(source, destination):
+    logging.info(&quot;===== ETL PIPELINE STARTED =====&quot;)
+    try:
+        data = extract(source)
+        data = transform(data)
+        load(data, destination)
+        logging.info(&quot;===== ETL PIPELINE COMPLETED SUCCESSFULLY =====&quot;)
+    except FileNotFoundError:
+        logging.error(&quot;Source file not found: %s&quot;, source)
+        logging.error(&quot;===== ETL PIPELINE FAILED =====&quot;)
+    except Exception as e:
+        logging.error(&quot;Pipeline error: %s&quot;, e)
+        logging.error(&quot;===== ETL PIPELINE FAILED =====&quot;)
+
+run_pipeline(&quot;dataset.csv&quot;, &quot;transformed_dataset.csv&quot;)
+</pre></div></div><div class="blk"><div class="bh"><span class="lab">Expected Output</span></div><div class="txt"><p>The pipeline prints the dataset shape, missing values and duplicate counts before and after cleaning. It saves the cleaned data to a new CSV file and logs messages for EXTRACT, TRANSFORM and LOAD, ending with “ETL PIPELINE COMPLETED SUCCESSFULLY” (or FAILED with the error).</p></div></div><div class="blk"><div class="bh"><span class="lab">Result</span></div><div class="txt"><p>An ETL pipeline was implemented using Python and Pandas. Data was extracted, cleaned, transformed and loaded into a destination CSV file, and the execution status was logged.</p></div></div><div class="blk"><div class="bh"><span class="lab">Viva Questions</span></div><div class="txt"><dl><div><dt>What is ETL?</dt><dd>Extract, Transform, Load: the process of reading data from sources, cleaning/transforming it, and storing it in a destination.</dd></div><div><dt>What is the difference between ETL and ELT?</dt><dd>In ETL data is transformed before loading. In ELT raw data is loaded first and transformed inside the warehouse.</dd></div><div><dt>How are missing values handled?</dt><dd>Numeric columns are filled with the mean (or median), text columns with a placeholder such as &quot;Unknown&quot;, or rows are dropped with dropna().</dd></div><div><dt>How are duplicates removed?</dt><dd>With df.drop_duplicates(). df.duplicated().sum() counts them.</dd></div><div><dt>Why is logging used in a pipeline?</dt><dd>It records when each step ran, how many rows it processed, and any errors, which helps with monitoring and debugging.</dd></div><div><dt>Why use try/except in the pipeline?</dt><dd>So a failure is caught and logged as FAILED with the reason, instead of crashing silently.</dd></div></dl></div></div></section>
+<p class="part">Internal 1 questions</p>
+<section id="q1"><div class="head"><h2><span class="num">Q1</span> Dataset overview + ydata-profiling report</h2></div><p class="q">Load a CSV dataset using Pandas. Display its shape, column names, data types, missing values, and duplicate count. Generate and save a ydata-profiling HTML report.</p><div class="blk"><div class="bh"><span class="lab">Python</span><button type="button" data-i="11">Copy</button></div><div class="code"><pre id="c11">!pip install -q ydata-profiling
+
+import pandas as pd
+from ydata_profiling import ProfileReport
+
+df = pd.read_csv(&quot;dataset.csv&quot;)
+
+print(&quot;Shape:&quot;, df.shape)
+print(&quot;\nColumn Names:&quot;)
+print(df.columns.tolist())
+print(&quot;\nData Types:&quot;)
+print(df.dtypes)
+print(&quot;\nMissing Values:&quot;)
+print(df.isnull().sum())
+print(&quot;\nDuplicate Count:&quot;, df.duplicated().sum())
+
+profile = ProfileReport(
+    df,
+    title=&quot;Data Profiling Report&quot;,
+    explorative=True
+)
+profile.to_file(&quot;data_profiling_report.html&quot;)
+print(&quot;\nReport saved as data_profiling_report.html&quot;)
+</pre></div></div></section><section id="q2"><div class="head"><h2><span class="num">Q2</span> Profiling report + data-quality observations</h2></div><p class="q">Generate a ydata-profiling report for a CSV dataset. Identify missing values, duplicate records, data types, and other useful data-quality observations from the report.</p><div class="blk"><div class="bh"><span class="lab">Python</span><button type="button" data-i="12">Copy</button></div><div class="code"><pre id="c12">!pip install -q ydata-profiling
+
+import pandas as pd
+from ydata_profiling import ProfileReport
+
+df = pd.read_csv(&quot;dataset.csv&quot;)
+
+profile = ProfileReport(
+    df,
+    title=&quot;Data Quality Report&quot;,
+    explorative=True
+)
+profile.to_file(&quot;data_quality_report.html&quot;)
+profile.to_notebook_iframe()      # shows the report inside Colab / Jupyter
+
+# Cross-check the report&#x27;s findings with Pandas
+print(&quot;Records:&quot;, df.shape[0], &quot; Attributes:&quot;, df.shape[1])
+print(&quot;\nData Types:&quot;)
+print(df.dtypes)
+print(&quot;\nMissing Values per Column:&quot;)
+print(df.isnull().sum())
+print(&quot;\nMissing %:&quot;)
+print((df.isnull().mean() * 100).round(2))
+print(&quot;\nDuplicate Records:&quot;, df.duplicated().sum())
+print(&quot;\nUnique Values per Column:&quot;)
+print(df.nunique())
+print(&quot;\nDescriptive Statistics:&quot;)
+print(df.describe())
+</pre></div></div><div class="blk"><div class="bh"><span class="lab">Observations to write</span><button type="button" data-i="13">Copy</button></div><div class="code"><pre id="c13">Where to find each item in the report:
+
+1. Overview tab   -&gt; Number of variables, Number of observations,
+                     Missing cells (count and %), Duplicate rows (count and %),
+                     Variable types (Numeric / Categorical / Boolean / Text).
+2. Alerts tab     -&gt; Warnings such as MISSING, DUPLICATES, HIGH CORRELATION,
+                     CONSTANT, UNIQUE, ZEROS, SKEWED, IMBALANCE.
+3. Variables      -&gt; Per column: distinct values, missing %, mean, min, max,
+                     histogram / most frequent values.
+4. Interactions &amp; Correlations -&gt; Relationships between numeric columns.
+5. Missing values -&gt; Count / matrix chart showing which columns have gaps.
+6. Sample         -&gt; First and last rows of the dataset.
+
+Sample observations (fill in with your dataset&#x27;s numbers):
+- The dataset has __ records and __ attributes.
+- __ cells (__%) are missing, mostly in column(s) ______.
+- __ duplicate rows were found and should be removed.
+- Column ______ is constant / highly unique (e.g. an ID) and adds no analytical value.
+- Columns ______ and ______ are highly correlated.
+- Column ______ is skewed / has many zeros, which may indicate outliers or default values.
+- Data types are correct / column ______ should be converted to ______.
+</pre></div></div></section><section id="q3"><div class="head"><h2><span class="num">Q3</span> First rows, dimensions, data types, summary</h2></div><p class="q">Load a CSV dataset using Pandas and display its first five rows, dimensions, data types, and summary information.</p><div class="blk"><div class="bh"><span class="lab">Python</span><button type="button" data-i="14">Copy</button></div><div class="code"><pre id="c14">import pandas as pd
+
+df = pd.read_csv(&quot;dataset.csv&quot;)
+
+print(&quot;First Five Rows:&quot;)
+print(df.head())
+
+print(&quot;\nDimensions (rows, columns):&quot;, df.shape)
+print(&quot;Number of Rows:&quot;, df.shape[0])
+print(&quot;Number of Columns:&quot;, df.shape[1])
+
+print(&quot;\nData Types:&quot;)
+print(df.dtypes)
+
+print(&quot;\nSummary Information:&quot;)
+df.info()
+
+print(&quot;\nStatistical Summary:&quot;)
+print(df.describe())
+</pre></div></div></section><section id="q4"><div class="head"><h2><span class="num">Q4</span> KPIs: pass %, failures, absentees</h2></div><p class="q">Using subject_summary_clean.csv, calculate the overall average pass percentage, total failures, and total absentees. Display the results with suitable labels.</p><div class="blk"><div class="bh"><span class="lab">Python</span><button type="button" data-i="15">Copy</button></div><div class="code"><pre id="c15">import pandas as pd
+
+df = pd.read_csv(&quot;subject_summary_clean.csv&quot;)
+
+print(df.head())
+print(&quot;Shape:&quot;, df.shape)
+print(&quot;\nColumns:&quot;)
+print(df.columns.tolist())
+
+overall_pass_percentage = df[&quot;pass_percentage&quot;].mean()
+total_failures = df[&quot;total_failures&quot;].sum()
+total_absent = df[&quot;absent&quot;].sum()
+
+print(&quot;\nOverall Average Pass Percentage:&quot;,
+      round(overall_pass_percentage, 2))
+print(&quot;Total Failures:&quot;, total_failures)
+print(&quot;Total Absentees:&quot;, total_absent)
+</pre></div></div></section><section id="q5"><div class="head"><h2><span class="num">Q5</span> Subject-wise analysis</h2></div><p class="q">Display subject-wise pass percentage, total failures, and absentees using subject_summary_clean.csv.</p><div class="blk"><div class="bh"><span class="lab">Python</span><button type="button" data-i="16">Copy</button></div><div class="code"><pre id="c16">import pandas as pd
+
+df = pd.read_csv(&quot;subject_summary_clean.csv&quot;)
+
+subject_analysis = df[
+    [&quot;subject_name&quot;, &quot;pass_percentage&quot;,
+     &quot;total_failures&quot;, &quot;absent&quot;]
+]
+print(&quot;Subject-wise Analysis:&quot;)
+print(subject_analysis.to_string(index=False))
+</pre></div></div></section><section id="q6"><div class="head"><h2><span class="num">Q6</span> Derived column: performance_level</h2></div><p class="q">Create a performance_level column using these rules: Excellent (pass percentage &gt;= 90), Good (&gt;= 75), Average (&gt;= 60), and Needs Improvement (&lt; 60). Display the subject-wise result.</p><div class="blk"><div class="bh"><span class="lab">Python</span><button type="button" data-i="17">Copy</button></div><div class="code"><pre id="c17">import pandas as pd
+
+df = pd.read_csv(&quot;subject_summary_clean.csv&quot;)
+
+def performance_level(pass_percentage):
+    if pass_percentage &gt;= 90:
+        return &quot;Excellent&quot;
+    elif pass_percentage &gt;= 75:
+        return &quot;Good&quot;
+    elif pass_percentage &gt;= 60:
+        return &quot;Average&quot;
+    else:
+        return &quot;Needs Improvement&quot;
+
+df[&quot;performance_level&quot;] = df[&quot;pass_percentage&quot;].apply(
+    performance_level
+)
+
+print(df[[&quot;subject_name&quot;, &quot;pass_percentage&quot;,
+          &quot;performance_level&quot;]].to_string(index=False))
+</pre></div></div></section><section id="q7"><div class="head"><h2><span class="num">Q7</span> Derived column: academic_risk</h2></div><p class="q">Create an academic_risk column that is True when pass_percentage &lt; 75 or total_failures &gt; 0. Display the subjects requiring attention.</p><div class="blk"><div class="bh"><span class="lab">Python</span><button type="button" data-i="18">Copy</button></div><div class="code"><pre id="c18">import pandas as pd
+
+df = pd.read_csv(&quot;subject_summary_clean.csv&quot;)
+
+df[&quot;academic_risk&quot;] = (
+    (df[&quot;pass_percentage&quot;] &lt; 75) |
+    (df[&quot;total_failures&quot;] &gt; 0)
+)
+
+print(df[[&quot;subject_name&quot;, &quot;pass_percentage&quot;,
+          &quot;total_failures&quot;, &quot;academic_risk&quot;]].to_string(index=False))
+
+attention_subjects = df[df[&quot;academic_risk&quot;]]
+
+print(&quot;\nSubjects Requiring Attention:&quot;)
+print(attention_subjects[
+    [&quot;subject_name&quot;, &quot;pass_percentage&quot;,
+     &quot;total_failures&quot;]
+].to_string(index=False))
+</pre></div></div></section><section id="q8"><div class="head"><h2><span class="num">Q8</span> Bar chart of subject-wise pass %</h2></div><p class="q">Create a bar chart of subject-wise pass percentage using Matplotlib. Add a title, axis labels, and readable subject labels.</p><div class="blk"><div class="bh"><span class="lab">Python</span><button type="button" data-i="19">Copy</button></div><div class="code"><pre id="c19">import pandas as pd
+
+df = pd.read_csv(&quot;subject_summary_clean.csv&quot;)
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(10, 5))
+plt.bar(df[&quot;subject_name&quot;], df[&quot;pass_percentage&quot;])
+plt.xlabel(&quot;Subject&quot;)
+plt.ylabel(&quot;Pass Percentage&quot;)
+plt.title(&quot;Subject-wise Pass Percentage&quot;)
+plt.xticks(rotation=45, ha=&quot;right&quot;)
+plt.tight_layout()
+plt.show()
+</pre></div></div></section><section id="q9"><div class="head"><h2><span class="num">Q9</span> Solution architecture: Student Data Analytics System</h2></div><p class="q">Design a solution architecture for a Student Data Analytics System. Draw a labelled diagram showing data sources, ingestion, processing, storage, and visualization.</p><div class="blk"><div class="bh"><span class="lab">Diagram</span><button type="button" data-i="20">Copy</button></div><div class="code"><pre id="c20">+--------------------------------------------------------+
+|                     DATA SOURCES                       |
+|  Student Details | Attendance Records                  |
+|  Examination Marks | Course Information                |
+|  (CSV / Excel files, MySQL database)                   |
++--------------------------------------------------------+
+                           |
+                           v
++--------------------------------------------------------+
+|                    DATA INGESTION                      |
+|           Python Scripts / Apache NiFi                 |
++--------------------------------------------------------+
+                           |
+                           v
++--------------------------------------------------------+     +--------------+
+|                   DATA PROCESSING                      |&lt;---&gt;| Monitoring,  |
+|  Cleaning | Validation | Transformation | Integration  |     | Logging &amp;    |
+|              (Python, Pandas / Spark)                  |     | Security     |
++--------------------------------------------------------+     +--------------+
+                           |
+                           v
++--------------------------------------------------------+
+|                     DATA STORAGE                       |
+|     Raw and Processed Data | MySQL / PostgreSQL        |
++--------------------------------------------------------+
+                           |
+                           v
++--------------------------------------------------------+
+|              ANALYSIS AND VISUALIZATION                |
+|  SQL Queries | Power BI / Tableau | Reports, Dashboards|
++--------------------------------------------------------+
+
+ Data flows from source systems to ingestion, processing,
+ storage, and analytics.
+</pre></div></div><div class="blk"><div class="bh"><span class="lab">Explanation</span><button type="button" data-i="21">Copy</button></div><div class="code"><pre id="c21">1. Data Sources: Student details, attendance records, examination marks and
    course information, kept in CSV/Excel files and a MySQL database.
 2. Data Ingestion: Python scripts (or Apache NiFi) extract data from every
    source and move it into the pipeline.
@@ -256,7 +481,7 @@ plt.show()
 6. Monitoring, Logging &amp; Security: Applies across the pipeline. It records
    execution and errors, controls access, and protects sensitive student data
    with authentication and backups.
-</pre></div></div></section><section id="q10"><div class="head"><h2><span class="num">Q10</span> Architecture for academic performance analytics + technologies</h2></div><p class="q">Draw and explain a data engineering architecture for an academic performance analytics system. Identify suitable technologies for the major components.</p><div class="blk"><div class="bh"><span>Diagram</span><button type="button" data-i="11">Copy</button></div><div class="code"><pre id="c11">  +-------------+  +-------------+  +-------------+  +-------------+
+</pre></div></div></section><section id="q10"><div class="head"><h2><span class="num">Q10</span> Architecture for academic performance analytics + technologies</h2></div><p class="q">Draw and explain a data engineering architecture for an academic performance analytics system. Identify suitable technologies for the major components.</p><div class="blk"><div class="bh"><span class="lab">Diagram</span><button type="button" data-i="22">Copy</button></div><div class="code"><pre id="c22">  +-------------+  +-------------+  +-------------+  +-------------+
   |  Student    |  | Attendance  |  | Exam Marks  |  |  Course     |
   |  Details    |  |  Records    |  | / Results   |  |  Info       |
   | (MySQL)     |  | (CSV/Excel) |  | (CSV/Excel) |  | (CSV)       |
@@ -293,7 +518,7 @@ plt.show()
                   |  SQL, Matplotlib,             |
                   |  Power BI / Tableau dashboards|
                   +-------------------------------+
-</pre></div></div><div class="blk"><div class="bh"><span>Technologies</span><button type="button" data-i="12">Copy</button></div><div class="code"><pre id="c12">Component               Technology / Tool               Purpose
+</pre></div></div><div class="blk"><div class="bh"><span class="lab">Technologies</span><button type="button" data-i="23">Copy</button></div><div class="code"><pre id="c23">Component               Technology / Tool               Purpose
 ----------------------  ------------------------------  -------------------------------
 Data sources            CSV, Excel, MySQL               Provide input data
 Data ingestion          Python (Apache NiFi)            Extract data from sources
@@ -305,7 +530,7 @@ Visualization           Power BI or Tableau             Reports and dashboards
 Architecture design     draw.io or Lucidchart           Draw the architecture diagram
 Documentation           MS Word or Google Docs          Document design decisions
 Monitoring              Python logging                  Record execution and errors
-</pre></div></div><div class="blk"><div class="bh"><span>Explanation</span><button type="button" data-i="13">Copy</button></div><div class="code"><pre id="c13">- Sources: Academic data comes from several systems: student master data in
+</pre></div></div><div class="blk"><div class="bh"><span class="lab">Explanation</span><button type="button" data-i="24">Copy</button></div><div class="code"><pre id="c24">- Sources: Academic data comes from several systems: student master data in
   MySQL, and attendance, marks and course files in CSV/Excel.
 - Ingestion: Python scripts read each source on a schedule and pass the data on.
 - Processing: Pandas validates IDs and types, removes duplicates, fills missing
@@ -320,7 +545,7 @@ Monitoring              Python logging                  Record execution and err
 - Review criteria: performance (fast queries), scalability (Spark/HDFS when
   data grows), reliability (logging, retries, backups) and stakeholder needs
   (dashboards for faculty and management).
-</pre></div></div></section><section id="q11"><div class="head"><h2><span class="num">Q11</span> Pipeline: student details + attendance + marks to dashboard</h2></div><p class="q">Design a data pipeline that combines student details, attendance, and examination marks and delivers the integrated data to storage and a reporting dashboard. Draw and label the main components and data flow.</p><div class="blk"><div class="bh"><span>Diagram</span><button type="button" data-i="14">Copy</button></div><div class="code"><pre id="c14">  +-----------------+   +-----------------+   +-----------------+
+</pre></div></div></section><section id="q11"><div class="head"><h2><span class="num">Q11</span> Pipeline: student details + attendance + marks to dashboard</h2></div><p class="q">Design a data pipeline that combines student details, attendance, and examination marks and delivers the integrated data to storage and a reporting dashboard. Draw and label the main components and data flow.</p><div class="blk"><div class="bh"><span class="lab">Diagram</span><button type="button" data-i="25">Copy</button></div><div class="code"><pre id="c25">  +-----------------+   +-----------------+   +-----------------+
   | students.csv    |   | attendance.csv  |   | marks.csv       |
   | student_id,     |   | student_id,     |   | student_id,     |
   | name, branch    |   | classes_held,   |   | subject, marks  |
@@ -371,7 +596,7 @@ Monitoring              Python logging                  Record execution and err
 
   Orchestration: Apache Airflow runs steps 1-6 on a schedule.
   Monitoring: Python logging records each step&#x27;s status and errors.
-</pre></div></div><div class="blk"><div class="bh"><span>Python (integration step)</span><button type="button" data-i="15">Copy</button></div><div class="code"><pre id="c15">import pandas as pd
+</pre></div></div><div class="blk"><div class="bh"><span class="lab">Python (integration step)</span><button type="button" data-i="26">Copy</button></div><div class="code"><pre id="c26">import pandas as pd
 
 students = pd.read_csv(&quot;students.csv&quot;)
 attendance = pd.read_csv(&quot;attendance.csv&quot;)
@@ -400,7 +625,7 @@ integrated = (
 integrated.to_csv(&quot;student_performance.csv&quot;, index=False)
 print(integrated.head())
 print(&quot;Integrated data saved to student_performance.csv&quot;)
-</pre></div></div></section><section id="q12"><div class="head"><h2><span class="num">Q12</span> ETL: missing values + duplicates to cleaned CSV</h2></div><p class="q">Write a Python/Pandas ETL pipeline that extracts data from a CSV file, handles missing values, removes duplicate records, and saves the cleaned data to a new CSV file.</p><div class="blk"><div class="bh"><span>Python</span><button type="button" data-i="16">Copy</button></div><div class="code"><pre id="c16">import pandas as pd
+</pre></div></div></section><section id="q12"><div class="head"><h2><span class="num">Q12</span> ETL: missing values + duplicates to cleaned CSV</h2></div><p class="q">Write a Python/Pandas ETL pipeline that extracts data from a CSV file, handles missing values, removes duplicate records, and saves the cleaned data to a new CSV file.</p><div class="blk"><div class="bh"><span class="lab">Python</span><button type="button" data-i="27">Copy</button></div><div class="code"><pre id="c27">import pandas as pd
 
 # ---------- EXTRACT ----------
 df = pd.read_csv(&quot;dataset.csv&quot;)
@@ -428,7 +653,7 @@ print(&quot;Duplicate records after cleaning:&quot;, df.duplicated().sum())
 df.to_csv(&quot;cleaned_dataset.csv&quot;, index=False)
 print(&quot;\nCleaned data shape:&quot;, df.shape)
 print(&quot;Cleaned data saved to cleaned_dataset.csv&quot;)
-</pre></div></div></section><section id="q13"><div class="head"><h2><span class="num">Q13</span> ETL workflow with logging</h2></div><p class="q">Implement an ETL workflow that extracts data, cleans and transforms it, loads the result into a destination CSV file, and prints or logs the pipeline execution status.</p><div class="blk"><div class="bh"><span>Python</span><button type="button" data-i="17">Copy</button></div><div class="code"><pre id="c17">import logging
+</pre></div></div></section><section id="q13"><div class="head"><h2><span class="num">Q13</span> ETL workflow with logging</h2></div><p class="q">Implement an ETL workflow that extracts data, cleans and transforms it, loads the result into a destination CSV file, and prints or logs the pipeline execution status.</p><div class="blk"><div class="bh"><span class="lab">Python</span><button type="button" data-i="28">Copy</button></div><div class="code"><pre id="c28">import logging
 import pandas as pd
 
 logging.basicConfig(
@@ -495,7 +720,258 @@ def run_pipeline(source, destination):
 
 run_pipeline(&quot;dataset.csv&quot;, &quot;transformed_dataset.csv&quot;)
 </pre></div></div></section>
-<pre id="allsrc" hidden># ===================== Q1) Dataset overview + ydata-profiling report =====================
+<pre id="allsrc" hidden># ===================== Laboratory Task 1 – Data Profiling using ydata-profiling =====================
+
+# --- Program ---
+!pip install -q ydata-profiling
+
+import pandas as pd
+from ydata_profiling import ProfileReport
+
+df = pd.read_csv(&quot;dataset.csv&quot;)
+df.head()
+
+print(&quot;Shape:&quot;, df.shape)
+print(&quot;\nData Types:&quot;)
+print(df.dtypes)
+
+profile = ProfileReport(
+    df,
+    title=&quot;Data Profiling Report&quot;,
+    explorative=True
+)
+profile.to_file(&quot;data_profiling_report.html&quot;)
+
+
+# ===================== Laboratory Task 2 – KPI Identification and Academic Performance Analysis =====================
+
+# --- Program – Load and Inspect ---
+import pandas as pd
+
+df = pd.read_csv(&quot;subject_summary_clean.csv&quot;)
+
+print(df.head())
+print(&quot;Shape:&quot;, df.shape)
+print(&quot;\nColumns:&quot;)
+print(df.columns.tolist())
+
+
+# --- Program – KPI Calculation ---
+overall_pass_percentage = df[&quot;pass_percentage&quot;].mean()
+total_failures = df[&quot;total_failures&quot;].sum()
+total_absent = df[&quot;absent&quot;].sum()
+
+print(&quot;Overall Average Pass Percentage:&quot;,
+      round(overall_pass_percentage, 2))
+print(&quot;Total Failures:&quot;, total_failures)
+print(&quot;Total Absentees:&quot;, total_absent)
+
+
+# --- Program – Subject-wise Analysis ---
+subject_analysis = df[
+    [&quot;subject_name&quot;, &quot;pass_percentage&quot;,
+     &quot;total_failures&quot;, &quot;absent&quot;]
+]
+print(subject_analysis)
+
+
+# --- Program – Derived Performance Level ---
+def performance_level(pass_percentage):
+    if pass_percentage &gt;= 90:
+        return &quot;Excellent&quot;
+    elif pass_percentage &gt;= 75:
+        return &quot;Good&quot;
+    elif pass_percentage &gt;= 60:
+        return &quot;Average&quot;
+    else:
+        return &quot;Needs Improvement&quot;
+
+df[&quot;performance_level&quot;] = df[&quot;pass_percentage&quot;].apply(
+    performance_level
+)
+
+print(df[[&quot;subject_name&quot;, &quot;pass_percentage&quot;,
+          &quot;performance_level&quot;]])
+
+
+# --- Program – Academic Risk ---
+df[&quot;academic_risk&quot;] = (
+    (df[&quot;pass_percentage&quot;] &lt; 75) |
+    (df[&quot;total_failures&quot;] &gt; 0)
+)
+
+print(df[[&quot;subject_name&quot;, &quot;pass_percentage&quot;,
+          &quot;total_failures&quot;, &quot;academic_risk&quot;]])
+
+
+# --- Program – Subjects Requiring Attention ---
+attention_subjects = df[
+    (df[&quot;pass_percentage&quot;] &lt; 75) |
+    (df[&quot;total_failures&quot;] &gt; 0)
+]
+
+print(&quot;Subjects Requiring Attention:&quot;)
+print(attention_subjects[
+    [&quot;subject_name&quot;, &quot;pass_percentage&quot;,
+     &quot;total_failures&quot;]
+])
+
+
+# --- Program – Visualization ---
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(10, 5))
+plt.bar(df[&quot;subject_name&quot;], df[&quot;pass_percentage&quot;])
+plt.xlabel(&quot;Subject&quot;)
+plt.ylabel(&quot;Pass Percentage&quot;)
+plt.title(&quot;Subject-wise Pass Percentage&quot;)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+
+# ===================== Experiment No. 3 – Architectural Design: Solution Architecture =====================
+
+# --- Proposed Solution Architecture (Figure 1) ---
++--------------------------------------------------------+
+|                     DATA SOURCES                       |
+|  Student Details | Attendance Records                  |
+|  Examination Marks | Course Information                |
+|  (CSV / Excel files, MySQL database)                   |
++--------------------------------------------------------+
+                           |
+                           v
++--------------------------------------------------------+
+|                    DATA INGESTION                      |
+|           Python Scripts / Apache NiFi                 |
++--------------------------------------------------------+
+                           |
+                           v
++--------------------------------------------------------+     +--------------+
+|                   DATA PROCESSING                      |&lt;---&gt;| Monitoring,  |
+|  Cleaning | Validation | Transformation | Integration  |     | Logging &amp;    |
+|              (Python, Pandas / Spark)                  |     | Security     |
++--------------------------------------------------------+     +--------------+
+                           |
+                           v
++--------------------------------------------------------+
+|                     DATA STORAGE                       |
+|     Raw and Processed Data | MySQL / PostgreSQL        |
++--------------------------------------------------------+
+                           |
+                           v
++--------------------------------------------------------+
+|              ANALYSIS AND VISUALIZATION                |
+|  SQL Queries | Power BI / Tableau | Reports, Dashboards|
++--------------------------------------------------------+
+
+ Data flows from source systems to ingestion, processing,
+ storage, and analytics.
+
+
+# ===================== Laboratory Task 5 – ETL Pipeline using Python and Pandas =====================
+
+# --- Program – Basic ETL (Q12) ---
+import pandas as pd
+
+# ---------- EXTRACT ----------
+df = pd.read_csv(&quot;dataset.csv&quot;)
+print(&quot;Extracted data shape:&quot;, df.shape)
+print(&quot;\nMissing values before cleaning:&quot;)
+print(df.isnull().sum())
+print(&quot;Duplicate records before cleaning:&quot;, df.duplicated().sum())
+
+# ---------- TRANSFORM ----------
+# 1. Remove duplicate records
+df = df.drop_duplicates()
+
+# 2. Handle missing values
+for col in df.columns:
+    if pd.api.types.is_numeric_dtype(df[col]):
+        df[col] = df[col].fillna(df[col].mean())      # numeric -&gt; mean
+    else:
+        df[col] = df[col].fillna(&quot;Unknown&quot;)           # text -&gt; &quot;Unknown&quot;
+
+print(&quot;\nMissing values after cleaning:&quot;)
+print(df.isnull().sum())
+print(&quot;Duplicate records after cleaning:&quot;, df.duplicated().sum())
+
+# ---------- LOAD ----------
+df.to_csv(&quot;cleaned_dataset.csv&quot;, index=False)
+print(&quot;\nCleaned data shape:&quot;, df.shape)
+print(&quot;Cleaned data saved to cleaned_dataset.csv&quot;)
+
+
+# --- Program – ETL Workflow with Logging (Q13) ---
+import logging
+import pandas as pd
+
+logging.basicConfig(
+    level=logging.INFO,
+    format=&quot;%(asctime)s - %(levelname)s - %(message)s&quot;,
+    handlers=[logging.FileHandler(&quot;etl_pipeline.log&quot;),
+              logging.StreamHandler()],
+    force=True
+)
+
+def extract(path):
+    logging.info(&quot;EXTRACT started: reading %s&quot;, path)
+    df = pd.read_csv(path)
+    logging.info(&quot;EXTRACT completed: %d rows, %d columns&quot;, df.shape[0], df.shape[1])
+    return df
+
+def transform(df):
+    logging.info(&quot;TRANSFORM started&quot;)
+    before = len(df)
+    df = df.drop_duplicates()
+    logging.info(&quot;Removed %d duplicate rows&quot;, before - len(df))
+
+    missing = int(df.isnull().sum().sum())
+    for col in df.columns:
+        if pd.api.types.is_numeric_dtype(df[col]):
+            df[col] = df[col].fillna(df[col].mean())
+        else:
+            df[col] = df[col].fillna(&quot;Unknown&quot;)
+    logging.info(&quot;Filled %d missing values&quot;, missing)
+
+    # standardize column names and text values
+    df.columns = df.columns.str.strip().str.lower().str.replace(&quot; &quot;, &quot;_&quot;)
+    for col in df.columns:
+        if not pd.api.types.is_numeric_dtype(df[col]):
+            df[col] = df[col].astype(str).str.strip()
+
+    # example derived attribute (only if the column exists)
+    if &quot;pass_percentage&quot; in df.columns:
+        df[&quot;result_status&quot;] = df[&quot;pass_percentage&quot;].apply(
+            lambda p: &quot;Good&quot; if p &gt;= 75 else &quot;Needs Attention&quot;)
+        logging.info(&quot;Added derived column result_status&quot;)
+
+    logging.info(&quot;TRANSFORM completed: %d rows&quot;, len(df))
+    return df
+
+def load(df, path):
+    logging.info(&quot;LOAD started: writing %s&quot;, path)
+    df.to_csv(path, index=False)
+    logging.info(&quot;LOAD completed: %d rows saved&quot;, len(df))
+
+def run_pipeline(source, destination):
+    logging.info(&quot;===== ETL PIPELINE STARTED =====&quot;)
+    try:
+        data = extract(source)
+        data = transform(data)
+        load(data, destination)
+        logging.info(&quot;===== ETL PIPELINE COMPLETED SUCCESSFULLY =====&quot;)
+    except FileNotFoundError:
+        logging.error(&quot;Source file not found: %s&quot;, source)
+        logging.error(&quot;===== ETL PIPELINE FAILED =====&quot;)
+    except Exception as e:
+        logging.error(&quot;Pipeline error: %s&quot;, e)
+        logging.error(&quot;===== ETL PIPELINE FAILED =====&quot;)
+
+run_pipeline(&quot;dataset.csv&quot;, &quot;transformed_dataset.csv&quot;)
+
+
+# ===================== Q1) Dataset overview + ydata-profiling report =====================
 
 # --- Python ---
 !pip install -q ydata-profiling

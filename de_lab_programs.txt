@@ -1,3 +1,254 @@
+# ===================== Laboratory Task 1 – Data Profiling using ydata-profiling =====================
+
+# --- Program ---
+!pip install -q ydata-profiling
+
+import pandas as pd
+from ydata_profiling import ProfileReport
+
+df = pd.read_csv("dataset.csv")
+df.head()
+
+print("Shape:", df.shape)
+print("\nData Types:")
+print(df.dtypes)
+
+profile = ProfileReport(
+    df,
+    title="Data Profiling Report",
+    explorative=True
+)
+profile.to_file("data_profiling_report.html")
+
+
+# ===================== Laboratory Task 2 – KPI Identification and Academic Performance Analysis =====================
+
+# --- Program – Load and Inspect ---
+import pandas as pd
+
+df = pd.read_csv("subject_summary_clean.csv")
+
+print(df.head())
+print("Shape:", df.shape)
+print("\nColumns:")
+print(df.columns.tolist())
+
+
+# --- Program – KPI Calculation ---
+overall_pass_percentage = df["pass_percentage"].mean()
+total_failures = df["total_failures"].sum()
+total_absent = df["absent"].sum()
+
+print("Overall Average Pass Percentage:",
+      round(overall_pass_percentage, 2))
+print("Total Failures:", total_failures)
+print("Total Absentees:", total_absent)
+
+
+# --- Program – Subject-wise Analysis ---
+subject_analysis = df[
+    ["subject_name", "pass_percentage",
+     "total_failures", "absent"]
+]
+print(subject_analysis)
+
+
+# --- Program – Derived Performance Level ---
+def performance_level(pass_percentage):
+    if pass_percentage >= 90:
+        return "Excellent"
+    elif pass_percentage >= 75:
+        return "Good"
+    elif pass_percentage >= 60:
+        return "Average"
+    else:
+        return "Needs Improvement"
+
+df["performance_level"] = df["pass_percentage"].apply(
+    performance_level
+)
+
+print(df[["subject_name", "pass_percentage",
+          "performance_level"]])
+
+
+# --- Program – Academic Risk ---
+df["academic_risk"] = (
+    (df["pass_percentage"] < 75) |
+    (df["total_failures"] > 0)
+)
+
+print(df[["subject_name", "pass_percentage",
+          "total_failures", "academic_risk"]])
+
+
+# --- Program – Subjects Requiring Attention ---
+attention_subjects = df[
+    (df["pass_percentage"] < 75) |
+    (df["total_failures"] > 0)
+]
+
+print("Subjects Requiring Attention:")
+print(attention_subjects[
+    ["subject_name", "pass_percentage",
+     "total_failures"]
+])
+
+
+# --- Program – Visualization ---
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(10, 5))
+plt.bar(df["subject_name"], df["pass_percentage"])
+plt.xlabel("Subject")
+plt.ylabel("Pass Percentage")
+plt.title("Subject-wise Pass Percentage")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+
+# ===================== Experiment No. 3 – Architectural Design: Solution Architecture =====================
+
+# --- Proposed Solution Architecture (Figure 1) ---
++--------------------------------------------------------+
+|                     DATA SOURCES                       |
+|  Student Details | Attendance Records                  |
+|  Examination Marks | Course Information                |
+|  (CSV / Excel files, MySQL database)                   |
++--------------------------------------------------------+
+                           |
+                           v
++--------------------------------------------------------+
+|                    DATA INGESTION                      |
+|           Python Scripts / Apache NiFi                 |
++--------------------------------------------------------+
+                           |
+                           v
++--------------------------------------------------------+     +--------------+
+|                   DATA PROCESSING                      |<--->| Monitoring,  |
+|  Cleaning | Validation | Transformation | Integration  |     | Logging &    |
+|              (Python, Pandas / Spark)                  |     | Security     |
++--------------------------------------------------------+     +--------------+
+                           |
+                           v
++--------------------------------------------------------+
+|                     DATA STORAGE                       |
+|     Raw and Processed Data | MySQL / PostgreSQL        |
++--------------------------------------------------------+
+                           |
+                           v
++--------------------------------------------------------+
+|              ANALYSIS AND VISUALIZATION                |
+|  SQL Queries | Power BI / Tableau | Reports, Dashboards|
++--------------------------------------------------------+
+
+ Data flows from source systems to ingestion, processing,
+ storage, and analytics.
+
+
+# ===================== Laboratory Task 5 – ETL Pipeline using Python and Pandas =====================
+
+# --- Program – Basic ETL (Q12) ---
+import pandas as pd
+
+# ---------- EXTRACT ----------
+df = pd.read_csv("dataset.csv")
+print("Extracted data shape:", df.shape)
+print("\nMissing values before cleaning:")
+print(df.isnull().sum())
+print("Duplicate records before cleaning:", df.duplicated().sum())
+
+# ---------- TRANSFORM ----------
+# 1. Remove duplicate records
+df = df.drop_duplicates()
+
+# 2. Handle missing values
+for col in df.columns:
+    if pd.api.types.is_numeric_dtype(df[col]):
+        df[col] = df[col].fillna(df[col].mean())      # numeric -> mean
+    else:
+        df[col] = df[col].fillna("Unknown")           # text -> "Unknown"
+
+print("\nMissing values after cleaning:")
+print(df.isnull().sum())
+print("Duplicate records after cleaning:", df.duplicated().sum())
+
+# ---------- LOAD ----------
+df.to_csv("cleaned_dataset.csv", index=False)
+print("\nCleaned data shape:", df.shape)
+print("Cleaned data saved to cleaned_dataset.csv")
+
+
+# --- Program – ETL Workflow with Logging (Q13) ---
+import logging
+import pandas as pd
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[logging.FileHandler("etl_pipeline.log"),
+              logging.StreamHandler()],
+    force=True
+)
+
+def extract(path):
+    logging.info("EXTRACT started: reading %s", path)
+    df = pd.read_csv(path)
+    logging.info("EXTRACT completed: %d rows, %d columns", df.shape[0], df.shape[1])
+    return df
+
+def transform(df):
+    logging.info("TRANSFORM started")
+    before = len(df)
+    df = df.drop_duplicates()
+    logging.info("Removed %d duplicate rows", before - len(df))
+
+    missing = int(df.isnull().sum().sum())
+    for col in df.columns:
+        if pd.api.types.is_numeric_dtype(df[col]):
+            df[col] = df[col].fillna(df[col].mean())
+        else:
+            df[col] = df[col].fillna("Unknown")
+    logging.info("Filled %d missing values", missing)
+
+    # standardize column names and text values
+    df.columns = df.columns.str.strip().str.lower().str.replace(" ", "_")
+    for col in df.columns:
+        if not pd.api.types.is_numeric_dtype(df[col]):
+            df[col] = df[col].astype(str).str.strip()
+
+    # example derived attribute (only if the column exists)
+    if "pass_percentage" in df.columns:
+        df["result_status"] = df["pass_percentage"].apply(
+            lambda p: "Good" if p >= 75 else "Needs Attention")
+        logging.info("Added derived column result_status")
+
+    logging.info("TRANSFORM completed: %d rows", len(df))
+    return df
+
+def load(df, path):
+    logging.info("LOAD started: writing %s", path)
+    df.to_csv(path, index=False)
+    logging.info("LOAD completed: %d rows saved", len(df))
+
+def run_pipeline(source, destination):
+    logging.info("===== ETL PIPELINE STARTED =====")
+    try:
+        data = extract(source)
+        data = transform(data)
+        load(data, destination)
+        logging.info("===== ETL PIPELINE COMPLETED SUCCESSFULLY =====")
+    except FileNotFoundError:
+        logging.error("Source file not found: %s", source)
+        logging.error("===== ETL PIPELINE FAILED =====")
+    except Exception as e:
+        logging.error("Pipeline error: %s", e)
+        logging.error("===== ETL PIPELINE FAILED =====")
+
+run_pipeline("dataset.csv", "transformed_dataset.csv")
+
+
 # ===================== Q1) Dataset overview + ydata-profiling report =====================
 
 # --- Python ---
